@@ -15,6 +15,8 @@ package com.leetcode.palindrome;
  * <p>
  * <p>
  * 解题思路：
+ * <p>
+ * 从第一个字符串开始，一次向左向右判断，如果相同就继续向左向右直到不相同或者越界为止，并判断最大长度，依次更新最大长度值，并记录最大长度值的开始为止。示例代码如下：
  */
 public class PalindromeSolution {
 
@@ -23,7 +25,7 @@ public class PalindromeSolution {
     private int maxLength;
 
     public static void main(String[] args) {
-        String s=  "babad";
+        String s = "babad";
 
         System.out.println(new PalindromeSolution().longestPalindrome(s));
     }
