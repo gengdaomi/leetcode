@@ -52,4 +52,8 @@ public class MergeSortSolution {
 
         return a;
     }
+
+    public static void main(String[] args){
+        new MergeSortSolution().sort(null,1,4);
+    }
 }
