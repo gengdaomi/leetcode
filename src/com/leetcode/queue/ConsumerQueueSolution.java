@@ -31,7 +31,6 @@ public class ConsumerQueueSolution {
         }
 
         /**
-         *
          * @return
          */
         public T peek() {
@@ -101,6 +100,35 @@ public class ConsumerQueueSolution {
         }
     }
 
+    static Runnable providerRunnable = () -> {
+        while (true) {
+            System.out.println("push data！");
+            consumerQueue.push("meta");
+
+            synchronized (waitNode) {
+                waitNode.notifyAll();
+            }
+
+            if (consumerQueue.size() >= 10) {
+                System.out.println("data is full!");
+
+                synchronized (waitNode) {
+                    try {
+                        waitNode.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            try {
+                Thread.sleep(400L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
     /**
      * 消费者
      */
@@ -129,7 +157,7 @@ public class ConsumerQueueSolution {
 
 
                 try {
-                    Thread.sleep(600L);
+                    Thread.sleep(500L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -137,11 +165,44 @@ public class ConsumerQueueSolution {
         }
     }
 
-    public static void main(String[] args) {
-        Provider provider = new Provider();
-        Consumer consumer = new Consumer();
+    static Runnable consumerRunnable = () -> {
+        while (true) {
+            System.out.println("load data！");
+            String a = consumerQueue.peek();
 
-        provider.start();
-        consumer.start();
+            synchronized (waitNode) {
+                waitNode.notifyAll();
+            }
+            if (a == null) {
+                System.out.println("no data!");
+
+                synchronized (waitNode) {
+                    try {
+                        waitNode.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+            try {
+                Thread.sleep(600L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    public static void main(String[] args) {
+//        Provider provider = new Provider();
+//        Consumer consumer = new Consumer();
+//
+//
+//        provider.start();
+//        consumer.start();
+
+        new Thread(providerRunnable).start();
+        new Thread(consumerRunnable).start();
     }
 }
