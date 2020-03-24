@@ -147,32 +147,32 @@ public class LFUCacheSolution {
         //最后把key和Node存入HashMap中
         map.put(key, n);
     }
-}
 
-class Node {
-    int key;
-    int value;
-    int frequency = 0; //访问次数
-    Node next; //下一元素
-    Node prev; //前一元素
-    NodeQueue nq;  //所属的外层链表元素
+    class Node {
+        int key;
+        int value;
+        int frequency = 0; //访问次数
+        Node next; //下一元素
+        Node prev; //前一元素
+        NodeQueue nq;  //所属的外层链表元素
 
-    Node(int key, int value) {
-        this.key = key;
-        this.value = value;
+        Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
     }
-}
 
-class NodeQueue {
-    NodeQueue next; //下一元素
-    NodeQueue prev;  //前一元素
-    Node tail;  //尾部Node
-    Node head;  //头部Node
+    class NodeQueue {
+        NodeQueue next; //下一元素
+        NodeQueue prev;  //前一元素
+        Node tail;  //尾部Node
+        Node head;  //头部Node
 
-    public NodeQueue(NodeQueue next, NodeQueue prev, Node tail, Node head) {
-        this.next = next;
-        this.prev = prev;
-        this.tail = tail;
-        this.head = head;
+        public NodeQueue(NodeQueue next, NodeQueue prev, Node tail, Node head) {
+            this.next = next;
+            this.prev = prev;
+            this.tail = tail;
+            this.head = head;
+        }
     }
 }
