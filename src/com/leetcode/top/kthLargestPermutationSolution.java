@@ -31,7 +31,7 @@ public class kthLargestPermutationSolution {
 
     public static void main(String[] args) {
     }
-    
+
     //相当于因式分解
     public String getPermutation(int n, int k) {
         int[] factorial = new int[n];
