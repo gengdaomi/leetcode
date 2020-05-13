@@ -34,9 +34,7 @@ public class StringSortSolution {
     public static void main(String[] args) {
         StringSortSolution stringSortSolution = new StringSortSolution();
 
-        String[] strings = new String[]{"flower", "flow", "flight"};
         Boolean flag = stringSortSolution.checkInclusion("ab", "eidbaooo");
-
         System.out.println(flag);
     }
 

@@ -56,7 +56,8 @@ public class MySqrtSolution {
     }
 
     /**
-     * 通过公式 2r=r+x/r
+     * 通过公式 2r=r+x/r ，不断的循环迭代 r的平方=x
+     *
      * @param x
      * @return
      */
