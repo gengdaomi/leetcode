@@ -21,6 +21,7 @@ public class GatherSolution {
         if (array == null || (len = array.length) < 2) {
             return len == -1 ? null : Arrays.copyOf(array, len);
         }
+
         Map<Integer, Object> uniqueMap = new HashMap<>();
         for (int value : array) {
             uniqueMap.put(value, null);
@@ -47,10 +48,12 @@ public class GatherSolution {
         if (aArray == null || bArray == null) {
             return null;
         }
+
         int aLen = 0, bLen = 0;
         if ((aLen = aArray.length) == 0 || (bLen = bArray.length) == 0) {
             return new int[0];
         }
+
         Map<Integer, Boolean> intersectMap = new HashMap<>();
         for (int aValue : aArray) {
             intersectMap.put(aValue, true);
@@ -66,6 +69,7 @@ public class GatherSolution {
                 intersectMap.put(bValue, false);
             }
         }
+
         intersectArray = Arrays.copyOf(intersectArray, iCount);
         Arrays.sort(intersectArray);
         return intersectArray;

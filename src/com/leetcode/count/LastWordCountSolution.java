@@ -22,11 +22,11 @@ public class LastWordCountSolution {
         }
 
         String[] strings = s.toLowerCase().split(" ");
-        if(strings==null || strings.length==0){
+        if (strings == null || strings.length == 0) {
             return count;
         }
 
-        return strings[strings.length-1].length();
+        return strings[strings.length - 1].length();
     }
 
     public static void main(String[] args) {
