@@ -1,6 +1,8 @@
 package com.leetcode.string;
 
 /**
+ * source:bytedancer
+ * 
  * 给定一个字符串，逐个翻转字符串中的每个单词。
  * <p>
  * <p>
@@ -43,11 +45,11 @@ public class ReverseStringSolution {
 
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = temp.length - 1; i >= 0; i--) {
-            if(temp[i].length()==0){
+            if (temp[i].length() == 0) {
                 continue;
             }
 
-            stringBuilder.append(temp[i]+" ");
+            stringBuilder.append(temp[i] + " ");
         }
 
         return stringBuilder.toString().trim();
