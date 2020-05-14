@@ -36,6 +36,7 @@ public class KLinkedMergeSolution {
         } else {
             tail.next = l2;
         }
+
         return res.next;
     }
 

@@ -57,7 +57,6 @@ public class MultiStringSolution {
          */
         int result[] = new int[a.length + b.length];
 
-        System.out.println("a:"+a);
         /*
          * 两数倒向相乘
          * 相减48，应该是char 转换为数字的 一个差值
