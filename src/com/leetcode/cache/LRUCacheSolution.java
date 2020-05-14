@@ -52,46 +52,50 @@ public class LRUCacheSolution {
         caches.put(key, node);
     }
 
+    public int get(int key) {
+        Node node = caches.get(key);
+        if (node == null) return -1;
+        moveNodeToFirst(node);
+        return node.value;
+    }
+
     private void removeLast() {
-        if (last != null) {
+        if (last != null) { //检查双向链表的尾结点是否存在具体节点
+
             caches.remove(last.key);
-            // 最后
             last = last.pre;
+
             if (last != null) {
                 last.next = null;
-            } else {
+            } else { //判断最后一个节点是否为空
                 first = null;
             }
         }
     }
 
     private void moveNodeToFirst(Node node) {
-        if (node == first || node == null) return;
-        // 先连接
+        if (node == first || node == null){
+            return;
+        }
+
         if (node.pre != null) {
             node.pre.next = node.next;
         }
-        if (node.next != null) {
+        if (node.next != null) { //如果当前移动节点 后置有节点，则将后置节点的pre指向当前节点的上一个节点
             node.next.pre = node.pre;
         }
-        if (node == last) {
+        if (node == last) {//如果要移动的节点是最后一个节点
             last = last.pre;
         }
         if (last == null || first == null) {
             last = first = node;
             return;
         }
+
         node.next = first;
         first.pre = node;
         first = node;
         node.pre = null;
-    }
-
-    public int get(int key) {
-        Node node = caches.get(key);
-        if (node == null) return -1;
-        moveNodeToFirst(node);
-        return node.value;
     }
 
     class Node {

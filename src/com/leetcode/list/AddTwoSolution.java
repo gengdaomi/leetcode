@@ -21,13 +21,12 @@ package com.leetcode.list;
 public class AddTwoSolution {
 
     public static void main(String[] args) {
-
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode head = new ListNode(0);
-        ListNode q = l1, p = l2;
-        ListNode cur = head;
+        ListNode q = l1, p = l2; //独立两条链表
+        ListNode cur = head; //初始化头结点
 
         int temp = 0;//进位
         while (q != null || p != null) {
@@ -36,14 +35,14 @@ public class AddTwoSolution {
 
             int sum = x + y + temp;
             cur.next = new ListNode(sum % 10);
-            cur =cur.next;
+            cur = cur.next;
             temp = sum / 10;
 
             p = (p != null) ? p.next : null;
             q = (q != null) ? q.next : null;
         }
 
-        if(temp!=0){
+        if (temp != 0) {
             cur.next = new ListNode(temp);
         }
 

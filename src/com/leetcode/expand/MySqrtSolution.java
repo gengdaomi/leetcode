@@ -27,7 +27,7 @@ public class MySqrtSolution {
 
     public static void main(String[] args) {
         MySqrtSolution mySqrtSolution = new MySqrtSolution();
-        int result = mySqrtSolution.mySqrt1(6);
+        int result = mySqrtSolution.mySqrt1(9);
 
         System.out.println(result);
     }

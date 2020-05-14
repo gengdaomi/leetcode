@@ -26,7 +26,7 @@ public class LastWordCountSolution {
             return count;
         }
 
-        return strings[strings.length - 1].length();
+        return strings[strings.length - 1].trim().length();
     }
 
     public static void main(String[] args) {

@@ -43,7 +43,7 @@ import java.util.Set;
 public class AllOneMainSolution {
 
     /*
-     * map1保存key-.value 的映射
+     * map1保存key-value 的映射
      */
     private Map<String, Integer> map1;
 
@@ -147,24 +147,24 @@ public class AllOneMainSolution {
      * Decrements an existing key by 1. If Key's value is 1, remove it from the data structure.
      */
     public void dec(String key) {
-        if(map1.containsKey(key)){ //如果存在
+        if (map1.containsKey(key)) { //如果存在
             int val = map1.get(key); //获取当前val的值
 
             DLinkedNode node = map2.get(val);//当前统计次数对应的节点
             node.keys.remove(key); //从节点的keys set中移除当前key
 
             //如果原统计次数为1，从map1中移除当前key
-            if(val==1){
+            if (val == 1) {
                 map1.remove(key);
-            }else {// 更新map1中的统计次数
-               map1.put(key,val-1);
+            } else {// 更新map1中的统计次数
+                map1.put(key, val - 1);
 
-               DLinkedNode nextNode = node.next; //拿到当前节点的下一个节点
+                DLinkedNode nextNode = node.next; //拿到当前节点的下一个节点
 
                 // 如果下一个节点为链表尾部或下一个节点的统计次数小于val-1
                 // 则新建一个节点，统计次数为val-1，将当前key加入到keys Set中
                 // 并将新节点插入到当前节点的后面，同时更新map2
-                if (nextNode == tail || nextNode.val < val - 1){
+                if (nextNode == tail || nextNode.val < val - 1) {
                     DLinkedNode newNode = new DLinkedNode(val - 1);
                     newNode.keys.add(key);
                     newNode.pre = node;
@@ -172,8 +172,8 @@ public class AllOneMainSolution {
                     node.next = newNode;
                     nextNode.pre = newNode;
                     map2.put(val - 1, newNode);
-                }else {
-                   // 下一个节点的统计次数为val-1，将key加到下一节点的keys Set中
+                } else {
+                    // 下一个节点的统计次数为val-1，将key加到下一节点的keys Set中
                     nextNode.keys.add(key);
                 }
             }
@@ -181,13 +181,12 @@ public class AllOneMainSolution {
     }
 
     /**
-     *  // 按照双向链表的定义，如果链表中存在节点（head和tail不算，dummy节点），则对应最大value的keys为head的下一个节点
-     *
+     * // 按照双向链表的定义，如果链表中存在节点（head和tail不算，dummy节点），则对应最大value的keys为head的下一个节点
+     * <p>
      * Returns one of the keys with maximal value.
-     *
-     * */
-    public String getMaxKey(){
-        if(head.next == tail){
+     */
+    public String getMaxKey() {
+        if (head.next == tail) {
             return "";
         }
 
@@ -196,12 +195,13 @@ public class AllOneMainSolution {
 
     /**
      * Returns one of the keys with Minimal value
-     *
+     * <p>
      * 按照双向链表的定义，如果链表中存在节点（head和tail不算，dummy节点），则对应最小value的keys为tail的前一个节点
+     *
      * @return
      */
-    public String getMinKey(){
-        if(tail.pre ==head){
+    public String getMinKey() {
+        if (tail.pre == head) {
             return "";
         }
 
