@@ -25,7 +25,7 @@ public class PalindromeSolution {
     private int maxLength;
 
     public static void main(String[] args) {
-        String s = "babad";
+        String s = "bbbbaaa";
 
         System.out.println(new PalindromeSolution().longestPalindrome(s));
     }
