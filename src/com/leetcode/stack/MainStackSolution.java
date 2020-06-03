@@ -1,4 +1,4 @@
-package com.leetcode.cache;
+package com.leetcode.stack;
 
 import java.util.Stack;
 
