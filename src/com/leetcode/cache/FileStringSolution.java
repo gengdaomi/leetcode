@@ -2,7 +2,7 @@ package com.leetcode.cache;
 
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.concurrent.*;
 
 /**
  * 题目2
@@ -10,32 +10,85 @@ import java.util.stream.Collectors;
  */
 public class FileStringSolution {
 
-    public static void main(String[] args) throws IOException {
-        Map<String, Integer> map = new HashMap<>();
-
+    public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
         File txtFile = new File("/Users/andrew-geng/Tools/test.txt");
         FileReader reader = new FileReader(txtFile);
         BufferedReader bReader = new BufferedReader(reader);
 
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+        CompletionService<Map<String, Integer>> completionService = new ExecutorCompletionService<Map<String, Integer>>(
+                executor);
+
         String s = "";
+        int lineNum = 0; //按多少行划分
+        int batchNum = 0; //分的批次数
+        List<String> batchStrList = new ArrayList<>();
+
         while ((s = bReader.readLine()) != null) {
-            if (s != null && s.trim().length() > 0) {  //这个把每行字符串 按空格分隔分开 获取
-                String[] strList = s.split(" ");
+            batchStrList.add(s);
+            lineNum++;
 
-                for (int i = 0; i < strList.length; i++) {
-                    map.put(strList[i], map.get(strList[i]) == null ? 1 : map.get(strList[i]) + 1);
-                }
-
-//                Arrays.stream(s.split(" "))
-//                        .filter(Objects::nonNull)
-//                        .forEach(str -> map.put(str, map.get(str) == null ? 1 : map.get(str) + 1));  //计数
+            if (lineNum % 100 == 0) {
+                batchNum++;
+                completionService.submit(new MinBatchCallable(batchStrList));
+                batchStrList = new ArrayList<>();
             }
         }
+
+        if (batchStrList.size() != 0) {
+            batchNum++;
+            completionService.submit(new MinBatchCallable(batchStrList));
+        }
+
+        executor.shutdown();
+
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < batchNum; i++) {
+            Map<String, Integer> subMap = completionService.take().get();
+
+            for (Map.Entry entry : subMap.entrySet()) {
+                if (map.containsKey(entry.getKey())) {
+                    map.put(entry.getKey().toString(), map.get(entry.getKey()) + (Integer) entry.getValue());
+                } else {
+                    map.put(entry.getKey().toString(), (Integer) entry.getValue());
+                }
+            }
+        }
+
 
         bReader.close();
 
         List<StringNode> result = new FileStringSolution().sort(map);
         System.out.println(result);
+    }
+
+    /**
+     * 小批量处理任务
+     */
+    static class MinBatchCallable implements Callable {
+        List<String> batchStrList; //批量行
+
+        public MinBatchCallable(List<String> batchStrList) {
+            this.batchStrList = batchStrList;
+        }
+
+
+        @Override
+        public Map<String, Integer> call() throws Exception {
+            Map<String, Integer> map = new HashMap<>();
+
+            for (String strList : batchStrList) {
+                if (strList != null && strList.trim().length() > 0) {  //这个把每行字符串 按空格分隔分开 获取
+                    String[] strArr = strList.split(" ");
+
+                    for (int i = 0; i < strArr.length; i++) {
+                        map.put(strArr[i], map.get(strArr[i]) == null ? 1 : map.get(strArr[i]) + 1);
+                    }
+                }
+            }
+
+            return map;
+        }
     }
 
     /**
@@ -68,13 +121,6 @@ public class FileStringSolution {
         }
 
         return result;
-
-//        return map.keySet()
-//                .stream()
-//                .filter(Objects::nonNull)
-//                .map(key -> new StringNode(key, map.get(key)))
-//                .sorted(Comparator.comparing(StringNode::getCount).reversed())
-//                .collect(Collectors.toList());
     }
 
     class StringNode {
