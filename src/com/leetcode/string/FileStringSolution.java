@@ -1,11 +1,11 @@
-package com.leetcode.cache;
+package com.leetcode.string;
 
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
 
 /**
- * 题目2
+ * 题目2 给一个包含1000w字符串的文件，写个程序统计下文件中每个字符串出现的次数，并且按字符串出现的次数排序
  * Created By Andrew-Geng on 2020/6/4 8:17 下午
  */
 public class FileStringSolution {
@@ -16,8 +16,7 @@ public class FileStringSolution {
         BufferedReader bReader = new BufferedReader(reader);
 
         ExecutorService executor = Executors.newFixedThreadPool(4);
-        CompletionService<Map<String, Integer>> completionService = new ExecutorCompletionService<Map<String, Integer>>(
-                executor);
+        CompletionService<Map<String, Integer>> completionService = new ExecutorCompletionService<Map<String, Integer>>(executor);
 
         String s = "";
         int lineNum = 0; //按多少行划分
@@ -54,7 +53,6 @@ public class FileStringSolution {
                 }
             }
         }
-
 
         bReader.close();
 
@@ -100,19 +98,15 @@ public class FileStringSolution {
     public List<StringNode> sort(Map<String, Integer> map) {
         List<Map.Entry<String, Integer>> keyList = new LinkedList<Map.Entry<String, Integer>>(map.entrySet()); //初始化
 
-        Collections.sort(keyList, new Comparator<Map.Entry<String, Integer>>() {
-            @Override
-            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                if (o2.getValue().compareTo(o1.getValue()) < 0) {
-                    return -1;
-                } else if (o2.getValue().compareTo(o1.getValue()) > 0) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+        Collections.sort(keyList, (o1, o2) -> {
+            if (o2.getValue().compareTo(o1.getValue()) < 0) {
+                return -1;
+            } else if (o2.getValue().compareTo(o1.getValue()) > 0) {
+                return 1;
+            } else {
+                return 0;
             }
         });
-
 
         List<StringNode> result = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : keyList) {
@@ -129,22 +123,6 @@ public class FileStringSolution {
 
         public StringNode(String val, int count) {
             this.count = count;
-            this.val = val;
-        }
-
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
-        }
-
-        public String getVal() {
-            return val;
-        }
-
-        public void setVal(String val) {
             this.val = val;
         }
 

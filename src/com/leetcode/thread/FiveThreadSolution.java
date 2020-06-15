@@ -5,7 +5,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
 
 /**
- * 题目1
+ * 题目1 老师有a,b,c,d,e五个任务，分别需要5个同学A，B，C，D，E去处理，
+ * 已知ABCDE五个同学分别只能处理和他自己对应的abcde一个任务。
+ * 老师分配任务的策略是将5个任务都直接交给了A，
+ * 要求A处理不了交给B，B处理不了交给C，C处理不了交给D，依次类推完成任务。
  * Created By Andrew-Geng on 2020/6/4 8:55 下午
  */
 public class FiveThreadSolution {
@@ -33,7 +36,6 @@ public class FiveThreadSolution {
         studentMap.put("C", new Student("C", C, D));
         studentMap.put("D", new Student("D", D, E));
         studentMap.put("E", new Student("E", E, A));
-
     }
 
     static class StudentThread extends Thread {
