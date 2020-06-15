@@ -96,7 +96,7 @@ public class FileStringSolution {
      * @return
      */
     public List<StringNode> sort(Map<String, Integer> map) {
-        List<Map.Entry<String, Integer>> keyList = new LinkedList<Map.Entry<String, Integer>>(map.entrySet()); //初始化
+        List<Map.Entry<String, Integer>> keyList = new ArrayList<>(map.entrySet()); //初始化
 
         Collections.sort(keyList, (o1, o2) -> {
             if (o2.getValue().compareTo(o1.getValue()) < 0) {
