@@ -10,20 +10,15 @@ public class FindFirstSolution {
     public String execute(String str) {
         int[] count = new int[26];
 
-        for(char c : str.toCharArray()){
+        for (char c : str.toCharArray()) {
             count[c - 'a']++;
         }
 
-        for(char c : str.toCharArray()){
-            if(count[c - 'a'] == 1){
+        for (char c : str.toCharArray()) {
+            if (count[c - 'a'] == 1) {
                 return String.valueOf(c);
             }
         }
         return "cannot find char";
-    }
-
-    public static void main(String[] args){
-       String result = new FindFirstSolution().execute("abacddc");
-       System.out.println(result);
     }
 }
