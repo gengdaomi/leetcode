@@ -1,4 +1,4 @@
-package com.leetcode.dynamic;
+package com.leetcode.arrays;
 
 import java.util.HashMap;
 import java.util.Map;
