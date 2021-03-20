@@ -48,4 +48,26 @@ public class MaxSubArraySolution {
 
         return sum;
     }
+
+    public int maxSubArray_1(int[] num) {
+        int length = num.length;
+
+        if (length == 0) {
+            return 0;
+        }
+
+        int[] dp = new int[length];
+        dp[0] = num[0];
+
+        for (int i = 0; i < length; i++) {
+            dp[i] = Math.max(dp[i - 1] + num[i], num[i]);
+        }
+
+        int result = Integer.MIN_VALUE;
+        for(int i=0;i<length;i++){
+            result = Math.max(result,dp[i]);
+        }
+
+        return result;
+    }
 }
