@@ -27,11 +27,12 @@ package com.leetcode.dynamic;
 public class MaxSubArraySolution {
 
     public static void main(String[] args) {
-
+        int[] arr = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        System.out.println(new MaxSubArraySolution().maxSubArray_1(arr));
     }
 
     public int maxSubArray(int[] nums) {
-        int sum = nums[0];
+        int sum = nums[0]; //初始化子序列的和值
         int n = nums[0];
 
         for (int i = 1; i < nums.length; i++) {
@@ -47,5 +48,21 @@ public class MaxSubArraySolution {
         }
 
         return sum;
+    }
+
+    public int maxSubArray_1(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int maxSum = nums[0];
+        int curSum = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            curSum = Math.max(curSum + nums[i], nums[i]);
+            maxSum = Math.max(curSum, maxSum);
+        }
+
+        return maxSum;
     }
 }
